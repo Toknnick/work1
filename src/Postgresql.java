@@ -6,13 +6,9 @@ import java.util.Scanner;
 public class Postgresql {
 
     public static void main(String[] args) {
-
-
         Scanner scanner = new Scanner(System.in);
-
         String postURL = "jdbc:postgresql://localhost:5432/Java";
         Connection con;
-
         try {
             con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Java", "postgres", "root");
             System.out.println("Подключение к базе данных... Успешно!");
@@ -20,9 +16,7 @@ public class Postgresql {
             System.out.println("Ошибка " + e);
         }
 
-        //System.out.println("Введите название таблицы:");
-
-
+        MathActions mathActions = new MathActions();
         while (true) {
             System.out.println("Выберите действие:");
             System.out.println("1.Вывести все таблицы");
@@ -45,7 +39,8 @@ public class Postgresql {
                     CreateDB.createTable(scanner);
                     break;
                 case "3":
-                    //MathActions.addition(scanner);
+                    mathActions.addition(scanner);
+                    wait(scanner);
                     break;
                 case "4":
                     //MathActions.subtraction(scanner);
@@ -76,7 +71,7 @@ public class Postgresql {
     }
 
     private static void wait(Scanner scanner){
-        System.out.println("Чтобы продолжить, нажмите любую кнопку");
+        System.out.println("\nЧтобы продолжить, нажмите любую кнопку\n");
         scanner.nextLine();
     }
 }
