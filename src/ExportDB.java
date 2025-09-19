@@ -1,12 +1,10 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.text.DecimalFormat;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.*;
+import java.text.DecimalFormat;
 
 public class ExportDB {
     public void saveAndExport() throws SQLException {
@@ -14,15 +12,17 @@ public class ExportDB {
             Statement stmt = conn.createStatement();
             String sql = "SELECT * FROM Math1";
             ResultSet data = stmt.executeQuery(sql);
+
             try (Workbook workbook = new XSSFWorkbook()) {
                 Sheet sheet = workbook.createSheet("Results");
                 Row header = sheet.createRow(0);
 
                 header.createCell(0).setCellValue("ID");
                 header.createCell(1).setCellValue("FirstNumber");
-                header.createCell(3).setCellValue("SecondNumber");
-                header.createCell(4).setCellValue("Result");
-                header.createCell(5).setCellValue("Action");
+                header.createCell(2).setCellValue("SecondNumber");
+                header.createCell(3).setCellValue("Result");
+                header.createCell(4).setCellValue("Action");
+
 
                 int rowNum = 1;
 
@@ -34,18 +34,18 @@ public class ExportDB {
                     float result = data.getFloat("result");
                     String action = data.getString("action");
 
-                    row.createCell(0).setCellValue(id);
-                    row.createCell(1).setCellValue(TryToParseToInt(num1));
-                    row.createCell(2).setCellValue(TryToParseToInt(num2));
-                    row.createCell(3).setCellValue(TryToParseToInt(result));
-                    row.createCell(4).setCellValue(action);
+                    row.createCell(0).setCellValue(id); // id — целое число, стиль не нужен
+                    createCellInWorkBook(1,row,num1,workbook);
+                    createCellInWorkBook(2,row,num2,workbook);
+                    createCellInWorkBook(3,row,result,workbook);
+                    row.createCell(4).setCellValue(action); // action — текст, стиль не нужен
 
                     if (action.equals("+") || action.equals("-") || action.equals("*") || action.equals("/") || action.equals("%")) {
                         System.out.printf("id: %d, number: %s, result: %s, action: %s\n",
-                                id, TryToParseToInt(num1), TryToParseToInt(result), action);
+                                id, tryToParseToInt(num1), tryToParseToInt(result), action);
                     } else {
                         System.out.printf("id: %d, firstNum: %s, secondNum: %s, result: %s, action: %s\n",
-                                id, TryToParseToInt(num1), TryToParseToInt(num2), TryToParseToInt(result), action);
+                                id, tryToParseToInt(num1), tryToParseToInt(num2), tryToParseToInt(result), action);
                     }
                 }
 
@@ -55,18 +55,35 @@ public class ExportDB {
                 }
 
                 // Сохраняем Excel в файл
-                try (FileOutputStream fileOut = new FileOutputStream("Results.xlsx")) {
+                String userHome = System.getProperty("user.home");
+                String desktopPath = userHome + File.separator + "Desktop" + File.separator + "Results.xlsx";
+
+                try (FileOutputStream fileOut = new FileOutputStream(desktopPath)) {
                     workbook.write(fileOut);
+                    System.out.println("Файл сохранён на рабочем столе: " + desktopPath);
+                } catch (Exception e) {
+                    System.out.println("Ошибка при работе: " + e);
                 }
 
-                System.out.println("\nДанные экспортированы в Results.xlsx");
             } catch (Exception e) {
                 System.out.println("Ошибка при работе: " + e);
             }
         }
     }
 
-    private String TryToParseToInt(float number){
+    private void createCellInWorkBook(int idRow,Row row,float num,Workbook workbook){
+        DataFormat format = workbook.createDataFormat();
+        CellStyle styleTwoDecimal = workbook.createCellStyle();
+        styleTwoDecimal.setDataFormat(format.getFormat("0.00"));
+        Cell cell = row.createCell(idRow);
+
+        if (num != (int) num)
+            cell.setCellStyle(styleTwoDecimal);
+
+        cell.setCellValue(num);
+    }
+
+    private String tryToParseToInt(float number){
         if (number == (int) number){
             return String.valueOf((int)number);
         }
