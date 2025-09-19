@@ -7,15 +7,6 @@ public class Postgresql {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String postURL = "jdbc:postgresql://localhost:5432/Java";
-        Connection con;
-        try {
-            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Java", "postgres", "root");
-            System.out.println("Подключение к базе данных... Успешно!");
-        } catch (SQLException e) {
-            System.out.println("Ошибка " + e);
-        }
-
         MathActions mathActions = new MathActions();
         while (true) {
             System.out.println("Выберите действие:");
@@ -33,32 +24,30 @@ public class Postgresql {
             switch (ans){
                 case "1":
                     ShowDB.showDB(scanner);
-                    wait(scanner);
                     break;
                 case "2":
                     CreateDB.createTable(scanner);
                     break;
                 case "3":
                     mathActions.addition(scanner);
-                    wait(scanner);
                     break;
                 case "4":
-                    //MathActions.subtraction(scanner);
+                    mathActions.subtraction(scanner);
                     break;
                 case "5":
-                    //MathActions.multiplication(scanner);
+                    mathActions.multiplication(scanner);
                     break;
                 case "6":
-                    //MathActions.division(scanner);
+                    mathActions.division(scanner);
                     break;
                 case "7":
-                    //MathActions.divisionModule(scanner);
+                    mathActions.divisionModule(scanner);
                     break;
                 case "8":
-                    //MathActions.toModule(scanner);
+                    mathActions.toModule(scanner);
                     break;
                 case "9":
-                    //MathActions.degree(scanner);
+                    mathActions.toDegree(scanner);
                     break;
                 case "10":
                     //ExportDB.saveAndExport(scanner);
@@ -67,11 +56,13 @@ public class Postgresql {
                     System.out.println("Ошибка ввода!");
                     break;
             }
+
+            wait(scanner);
         }
     }
 
     private static void wait(Scanner scanner){
-        System.out.println("\nЧтобы продолжить, нажмите любую кнопку\n");
+        System.out.println("\nЧтобы продолжить, нажмите Enter\n");
         scanner.nextLine();
     }
 }
