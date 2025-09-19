@@ -163,7 +163,7 @@ public class MathActions {
     }
 
     private void firstStart(Statement stmt) throws SQLException {
-        String sqlString = "CREATE TABLE IF NOT EXISTS Math1 (" +
+        String sqlString = "CREATE TABLE IF NOT EXISTS Math (" +
                 "id SERIAL PRIMARY KEY, " +
                 "num1 FLOAT NOT NULL, " +
                 "num2 FLOAT, " +

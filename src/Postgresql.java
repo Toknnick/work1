@@ -1,6 +1,3 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Postgresql {
@@ -8,6 +5,7 @@ public class Postgresql {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         MathActions mathActions = new MathActions();
+        ExportDB exportDB = new ExportDB();
         while (true) {
             System.out.println("Выберите действие:");
             System.out.println("1.Вывести все таблицы");
@@ -50,7 +48,7 @@ public class Postgresql {
                     mathActions.toDegree(scanner);
                     break;
                 case "10":
-                    //ExportDB.saveAndExport(scanner);
+                    exportDB.saveAndExport();
                     break;
                 default:
                     System.out.println("Ошибка ввода!");
