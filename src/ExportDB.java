@@ -49,7 +49,7 @@ public class ExportDB {
                     }
                 }
 
-                saveFile(workbook,sheet,"Task2");
+                saveFile(workbook,sheet,"Task3");
             } catch (Exception e) {
                 System.out.println("Ошибка при работе: " + e);
             }
@@ -94,6 +94,41 @@ public class ExportDB {
                 }
 
                 saveFile(workbook,sheet,table);
+            } catch (Exception e) {
+                System.out.println("Ошибка при работе: " + e);
+            }
+        }
+    }
+
+    public void saveAndExportTask3() throws SQLException {
+        try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Java", "postgres", "root")) {
+            Statement stmt = conn.createStatement();
+            String sql = "SELECT * FROM Task3";
+            ResultSet data = stmt.executeQuery(sql);
+
+            try (Workbook workbook = new XSSFWorkbook()) {
+                Sheet sheet = workbook.createSheet("ResultsTask1");
+                Row header = sheet.createRow(0);
+
+                header.createCell(0).setCellValue("ID");
+                header.createCell(1).setCellValue("Numbers");
+                header.createCell(2).setCellValue("Result");
+                int rowNum = 1;
+
+                while (data.next()) {
+                    Row row = sheet.createRow(rowNum++);
+                    int id = data.getInt("id");
+                    String numbers = data.getString("numbers");
+                    String result = data.getString("result");
+
+                    row.createCell(0).setCellValue(id);
+                    row.createCell(1).setCellValue(numbers);
+                    row.createCell(2).setCellValue(result);
+
+                    System.out.printf("id: %d, numbers: %s, result: %s\n", id, numbers, result);
+                }
+
+                saveFile(workbook,sheet,"Task2");
             } catch (Exception e) {
                 System.out.println("Ошибка при работе: " + e);
             }
