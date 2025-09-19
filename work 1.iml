@@ -10,7 +10,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/postgresql-42.7.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Jars/commons-codec-1.15.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -19,7 +19,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/poi-5.2.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Jars/commons-collections4-4.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -28,7 +28,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/poi-ooxml-5.2.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Jars/commons-io-2.11.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -37,7 +37,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/poi-ooxml-lite-5.2.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Jars/commons-math3-3.6.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -46,7 +46,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/auxiliary/xml-apis-1.4.01.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Jars/curvesapi-1.07.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -55,7 +55,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/ooxml-lib/xmlbeans-5.1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Jars/log4j-api-2.18.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -64,7 +64,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/ooxml-lib/curvesapi-1.07.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Jars/poi-5.2.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -73,7 +73,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/lib/SparseBitSet-1.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Jars/poi-ooxml-5.2.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -82,7 +82,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/lib/commons-io-2.11.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Jars/poi-ooxml-lite-5.2.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -91,7 +91,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/lib/commons-codec-1.15.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Jars/SparseBitSet-1.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -100,7 +100,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/lib/commons-collections4-4.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Jars/xml-apis-1.4.01.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -109,7 +109,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/lib/commons-math3-3.6.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Jars/xmlbeans-5.1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -118,7 +118,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/ooxml-lib/commons-compress-1.21.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Jars/postgresql-42.7.8.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -127,16 +127,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/poi-bin-5.2.3-20220909/poi-bin-5.2.3/lib/log4j-api-2.18.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/log4j-core-2.8.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Jars/commons-compress-1.21.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
