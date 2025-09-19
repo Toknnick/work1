@@ -16,6 +16,7 @@ public class MathActions {
         } catch (Exception e) {
             System.out.println("Неверный формат ввода!");
         }
+
     }
 
     public void subtraction(Scanner scanner) {
@@ -91,9 +92,9 @@ public class MathActions {
                 try {
                     String sql = "";
                     if (table.equals("Math1"))
-                        sql = "INSERT INTO Math1 (num1, num2, result, action) VALUES (?, ?, ?, ?)";
+                        sql = "INSERT INTO Math (num1, num2, result, action) VALUES (?, ?, ?, ?)";
                     else
-                        sql = "INSERT INTO Math1 (num1, result, action) VALUES (?, ?, ?)";
+                        sql = "INSERT INTO Math (num1, result, action) VALUES (?, ?, ?)";
 
                     PreparedStatement pstmt = conn.prepareStatement(sql);
 
@@ -122,8 +123,7 @@ public class MathActions {
     }
 
     private void getInfo(Statement stmt,String table) throws SQLException {
-        String sqlString = "";
-        sqlString = "SELECT id, num1, num2, result,action, action FROM Math1";
+        String sqlString = "SELECT id, num1, num2, result,action, action FROM Math";
 
         ResultSet data = stmt.executeQuery(sqlString);
         while (data.next()) {
@@ -139,12 +139,12 @@ public class MathActions {
 
             if ((table.equals("Math2") && !(action.equals("+") || action.equals("-") || action.equals("*") || action.equals("/") || action.equals("%")))){
                 System.out.printf("id: %d, number: %s, result: %s, action: %s\n",
-                        id, TryToParseToInt(num1), TryToParseToInt(result), action);
+                        id, tryToParseToInt(num1), tryToParseToInt(result), action);
             }
 
             else if((table.equals("Math1") && !(action.equals("|x|") || action.equals("X^y")))){
                 System.out.printf("id: %d, firstNum: %s, secondNum: %s, result: %s, action: %s\n",
-                        id, TryToParseToInt(num1), TryToParseToInt(num2), TryToParseToInt(result),action);
+                        id, tryToParseToInt(num1), tryToParseToInt(num2), tryToParseToInt(result),action);
             }
             //%s для строк
             //%d для int
@@ -152,7 +152,7 @@ public class MathActions {
 
     }
 
-    private String TryToParseToInt(float number){
+    private String tryToParseToInt(float number){
         if (number == (int) number){
             return String.valueOf((int)number);
         }

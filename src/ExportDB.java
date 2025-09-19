@@ -7,14 +7,14 @@ import java.sql.*;
 import java.text.DecimalFormat;
 
 public class ExportDB {
-    public void saveAndExport() throws SQLException {
+    public void saveAndExportTask1() throws SQLException {
         try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Java", "postgres", "root")) {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM Math1";
+            String sql = "SELECT * FROM Math";
             ResultSet data = stmt.executeQuery(sql);
 
             try (Workbook workbook = new XSSFWorkbook()) {
-                Sheet sheet = workbook.createSheet("Results");
+                Sheet sheet = workbook.createSheet("ResultsTask1");
                 Row header = sheet.createRow(0);
 
                 header.createCell(0).setCellValue("ID");
@@ -38,7 +38,7 @@ public class ExportDB {
                     createCellInWorkBook(1,row,num1,workbook);
                     createCellInWorkBook(2,row,num2,workbook);
                     createCellInWorkBook(3,row,result,workbook);
-                    row.createCell(4).setCellValue(action); // action — текст, стиль не нужен
+                    row.createCell(4).setCellValue(action);
 
                     if (action.equals("+") || action.equals("-") || action.equals("*") || action.equals("/") || action.equals("%")) {
                         System.out.printf("id: %d, number: %s, result: %s, action: %s\n",
@@ -49,25 +49,72 @@ public class ExportDB {
                     }
                 }
 
-                //Сделать авторазмер таблицы
-                for (int i = 0; i < 5; i++) {
-                    sheet.autoSizeColumn(i);
-                }
-
-                // Сохраняем Excel в файл
-                String userHome = System.getProperty("user.home");
-                String desktopPath = userHome + File.separator + "Desktop" + File.separator + "Results.xlsx";
-
-                try (FileOutputStream fileOut = new FileOutputStream(desktopPath)) {
-                    workbook.write(fileOut);
-                    System.out.println("Файл сохранён на рабочем столе: " + desktopPath);
-                } catch (Exception e) {
-                    System.out.println("Ошибка при работе: " + e);
-                }
-
+                saveFile(workbook,sheet,"Task2");
             } catch (Exception e) {
                 System.out.println("Ошибка при работе: " + e);
             }
+        }
+    }
+
+    public void saveAndExportTask2And4(String table) throws SQLException {
+        try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Java", "postgres", "root")) {
+            Statement stmt = conn.createStatement();
+            String sql = String.format("SELECT * FROM %s",table);
+            ResultSet data = stmt.executeQuery(sql);
+
+            try (Workbook workbook = new XSSFWorkbook()) {
+                Sheet sheet = workbook.createSheet("ResultsTask2");
+                Row header = sheet.createRow(0);
+
+                header.createCell(0).setCellValue("ID");
+                header.createCell(1).setCellValue("FirstString");
+                header.createCell(2).setCellValue("SecondString");
+                header.createCell(3).setCellValue("Result");
+
+                int rowNum = 1;
+
+                while (data.next()) {
+                    Row row = sheet.createRow(rowNum++);
+                    int id = data.getInt("id");
+                    String string1 = data.getString("string1");
+                    String string2 = data.getString("string2");
+                    String result = data.getString("result");
+
+                    row.createCell(0).setCellValue(id);
+                    row.createCell(1).setCellValue(string1);
+                    row.createCell(2).setCellValue(string2);
+                    row.createCell(3).setCellValue(result);
+
+                    if (!result.isEmpty())
+                        System.out.printf("id: %d, string1: %s, string2: %s, result: %s\n",
+                                id, string1, string2, result);
+                    else
+                        System.out.printf("id: %d, string1: %s, string2: %s\n",
+                                id, string1, string2);
+                }
+
+                saveFile(workbook,sheet,table);
+            } catch (Exception e) {
+                System.out.println("Ошибка при работе: " + e);
+            }
+        }
+    }
+
+    private void saveFile(Workbook workbook,Sheet sheet,String name){
+        //Сделать авто размер таблицы
+        for (int i = 0; i < 5; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        // Сохраняем Excel в файл
+        String userHome = System.getProperty("user.home");
+        String desktopPath = userHome + File.separator + "Desktop" + File.separator + name + ".xlsx";
+
+        try (FileOutputStream fileOut = new FileOutputStream(desktopPath)) {
+            workbook.write(fileOut);
+            System.out.println("Файл сохранён на рабочем столе: " + desktopPath);
+        } catch (Exception e) {
+            System.out.println("Ошибка при работе: " + e);
         }
     }
 

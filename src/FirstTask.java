@@ -1,13 +1,12 @@
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class Postgresql {
-
-    public static void main(String[] args) throws SQLException {
-        Scanner scanner = new Scanner(System.in);
+public class FirstTask {
+    public void start(Scanner scanner) throws SQLException {
         MathActions mathActions = new MathActions();
         ExportDB exportDB = new ExportDB();
-        while (true) {
+        boolean loop = true;
+        while (loop) {
             System.out.println("Выберите действие:");
             System.out.println("1.Вывести все таблицы");
             System.out.println("2.Создать таблицу ");
@@ -19,6 +18,7 @@ public class Postgresql {
             System.out.println("8.Возведение числа в модуль, результат сохранить");
             System.out.println("9.Возведение числа в степень, результат сохранить");
             System.out.println("10.Сохранить все данные (вышеполученные результаты) в Excel и вывести на экран.");
+            System.out.println("0.Назад");
             String ans = scanner.nextLine();
             switch (ans){
                 case "1":
@@ -49,7 +49,10 @@ public class Postgresql {
                     mathActions.toDegree(scanner);
                     break;
                 case "10":
-                    exportDB.saveAndExport();
+                    exportDB.saveAndExportTask1();
+                    break;
+                case "0":
+                    loop = false;
                     break;
                 default:
                     System.out.println("Ошибка ввода!");
@@ -60,7 +63,7 @@ public class Postgresql {
         }
     }
 
-    private static void wait(Scanner scanner){
+    private void wait(Scanner scanner){
         System.out.println("\nЧтобы продолжить, нажмите Enter\n");
         scanner.nextLine();
     }
