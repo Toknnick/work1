@@ -29,6 +29,7 @@ public class StringActions {
             else if (ans.contains("0")){
                 try {
                     task.start(scanner);
+                    break;
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
