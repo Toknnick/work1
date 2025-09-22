@@ -17,9 +17,10 @@ public class MathActions {
         try {
             getNumbers(scanner);
             resultNumFloat = firstNumFloat + secondNumFloat;
-            defaultActionWithNumbers("+","Math1");
+            defaultActionWithNumbers("+","Math1",scanner);
         } catch (Exception e) {
             System.out.println("Неверный формат ввода!");
+            addition(scanner);
         }
 
     }
@@ -28,9 +29,10 @@ public class MathActions {
         try {
             getNumbers(scanner);
             resultNumFloat = firstNumFloat - secondNumFloat;
-            defaultActionWithNumbers("-","Math1");
+            defaultActionWithNumbers("-","Math1",scanner);
         } catch (Exception e) {
             System.out.println("Неверный формат ввода!");
+            subtraction(scanner);
         }
     }
 
@@ -38,9 +40,10 @@ public class MathActions {
         try {
             getNumbers(scanner);
             resultNumFloat = firstNumFloat * secondNumFloat;
-            defaultActionWithNumbers("*","Math1");
+            defaultActionWithNumbers("*","Math1",scanner);
         } catch (Exception e) {
             System.out.println("Неверный формат ввода!");
+            multiplication(scanner);
         }
     }
 
@@ -48,9 +51,10 @@ public class MathActions {
         try {
             getNumbers(scanner);
             resultNumFloat = firstNumFloat / secondNumFloat;
-            defaultActionWithNumbers("/","Math1");
+            defaultActionWithNumbers("/","Math1",scanner);
         } catch (Exception e) {
             System.out.println("Неверный формат ввода!");
+            division(scanner);
         }
     }
 
@@ -58,9 +62,10 @@ public class MathActions {
         try {
             getNumbers(scanner);
             resultNumFloat = firstNumFloat % secondNumFloat;
-            defaultActionWithNumbers("%","Math1");
+            defaultActionWithNumbers("%","Math1",scanner);
         } catch (Exception e) {
             System.out.println("Неверный формат ввода!");
+            divisionModule(scanner);
         }
     }
 
@@ -70,9 +75,10 @@ public class MathActions {
             String num1 = scanner.nextLine();
             firstNumFloat = Float.parseFloat(num1);
             resultNumFloat = Math.abs(firstNumFloat);
-            defaultActionWithNumbers("|x|","Math2");
+            defaultActionWithNumbers("|x|","Math2",scanner);
         } catch (Exception e) {
             System.out.println("Неверный формат ввода!");
+            toModule(scanner);
         }
     }
 
@@ -84,19 +90,20 @@ public class MathActions {
             int degree = scanner.nextInt();
             firstNumFloat = Float.parseFloat(num1);
             resultNumFloat = (float)Math.pow(firstNumFloat,degree);
-            defaultActionWithNumbers("X^y","Math2");
+            defaultActionWithNumbers("X^y","Math2",scanner);
         } catch (Exception e) {
             System.out.println("Неверный формат ввода!");
+            toDegree(scanner);
         }
     }
 
-    private void defaultActionWithNumbers(String action,String table) {
+    private void defaultActionWithNumbers(String action,String table,Scanner scanner) {
         try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Java", "postgres", "root")) {
             Statement stmt = conn.createStatement();
 
             if (task.tableName.isEmpty()){
                 System.out.println("Вы не выбрали/создали таблицу!");
-                return;
+                task.start(scanner);
             }
 
             try {

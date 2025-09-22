@@ -4,6 +4,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileOutputStream;
 import java.sql.*;
 import java.text.DecimalFormat;
+import java.util.Scanner;
 
 public class ExportDB {
     private Task task;
@@ -12,10 +13,10 @@ public class ExportDB {
         task = taskTemp;
     }
 
-    public void saveAndExportTask() throws SQLException {
+    public void saveAndExportTask(Scanner scanner) throws SQLException {
         if (task.tableName.isEmpty()){
             System.out.println("Вы не выбрали/создали таблицу!");
-            return;
+            task.start(scanner);
         }
         try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Java", "postgres", "root")) {
             Statement stmt = conn.createStatement();

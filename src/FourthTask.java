@@ -1,10 +1,10 @@
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class SecondTask extends Task{
+public class FourthTask extends Task{
 
     public void start(Scanner scanner) throws SQLException {
-        taskNumber = 2;
+        taskNumber = 4;
 
         StringActions stringActions = new StringActions(this);
         ExportDB exportDB = new ExportDB(this);
@@ -15,13 +15,12 @@ public class SecondTask extends Task{
         while (loop) {
             System.out.println("Выберите действие:");
             System.out.println("""
-                    1. Вывести таблицы.
-                    2. Создать таблицу\s
-                    3. Ввести две строки с клавиатуры
-                    4. Подсчитать размер ранее введенных строк
-                    5. Объединить две строки в единое целое
-                    6. Сравнить две ранее введенные строки
-                    7. Сохранить все данные в Excel и вывести на экран.
+                    1. Вывести таблицы
+                    2. Создать таблицу
+                    3. Возвращение подстроки по индексам.
+                    4. Перевод строк в верхний и нижний регистры
+                    5. Поиск подстроки и определение окончания подстроки
+                    6. Сохранить все данные в Excel
                     
                     0.Назад""");
             String ans = scanner.nextLine();
@@ -34,18 +33,15 @@ public class SecondTask extends Task{
                     createDB.createTableForTask2And4(scanner);
                     break;
                 case "3":
-                    stringActions.getStrings(scanner,true);
+                    stringActions.returnStrByIndex(scanner);
                     break;
                 case "4":
-                    stringActions.getLenOfStrings(scanner);
+                    stringActions.stringToRegister(scanner);
                     break;
                 case "5":
-                    stringActions.addLines(scanner);
+                    stringActions.findEndOfString(scanner);
                     break;
                 case "6":
-                    stringActions.compare(scanner);
-                    break;
-                case "7":
                     exportDB.saveAndExportTask(scanner);
                 case "0":
                     loop = false;

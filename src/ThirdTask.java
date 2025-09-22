@@ -32,7 +32,7 @@ public class ThirdTask extends Task{
                     action(scanner);
                     break;
                 case "4":
-                    exportDB.saveAndExportTask();
+                    exportDB.saveAndExportTask(scanner);
                 case "0":
                     loop = false;
                     break;

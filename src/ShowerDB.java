@@ -54,7 +54,7 @@ public class ShowerDB {
             if (task.taskNumber == 1) {
                 if (counterTask1 == 1){
                     System.out.println("Таблиц нет!");
-                    return;
+                    task.start(scanner);
                 }
                 for (int i = 1; i < counterTask1; i++) {
                     System.out.println((i) + ". " + namesTask1[i]);
@@ -63,7 +63,7 @@ public class ShowerDB {
             else if (task.taskNumber == 2 || task.taskNumber == 4) {
                 if (counterTask2And4 == 1){
                     System.out.println("Таблиц нет!");
-                    return;
+                    task.start(scanner);
                 }
                 for (int i = 1; i < counterTask2And4; i++) {
                     System.out.println((i) + ". " + namesTask2And4[i]);
@@ -72,7 +72,7 @@ public class ShowerDB {
             else {
                 if (counterTask3 == 1){
                     System.out.println("Таблиц нет!");
-                    return;
+                    task.start(scanner);
                 }
                 for (int i = 1; i < counterTask3; i++) {
                     System.out.println((i) + ". " + namesTask3[i]);

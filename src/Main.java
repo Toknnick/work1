@@ -8,6 +8,7 @@ public class Main {
         FirstTask firstTask = new FirstTask();
         SecondTask secondTask = new SecondTask();
         ThirdTask thirdTask = new ThirdTask();
+        FourthTask fourthTask = new FourthTask();
         Scanner scanner = new Scanner(System.in);
         boolean loop = true;
 
@@ -16,7 +17,7 @@ public class Main {
             System.out.println("1.Первая часть");
             System.out.println("2.Вторая часть");
             System.out.println("3.Третья часть");
-            System.out.println("4.Четвертая часть(в разработке)");
+            System.out.println("4.Четвертая часть");
             System.out.println("\n0.Выйти");
             String ans = scanner.nextLine();
             switch (ans){
@@ -29,9 +30,9 @@ public class Main {
                 case "3":
                     thirdTask.start(scanner);
                     break;
-                /*case "4":
-                    //mathActions.subtraction(scanner);
-                    break;*/
+                case "4":
+                    fourthTask.start(scanner);
+                    break;
                 case "0":
                     loop = false;
                     break;

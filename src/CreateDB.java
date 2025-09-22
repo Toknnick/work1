@@ -35,7 +35,7 @@ public class CreateDB {
                 "id SERIAL PRIMARY KEY, " +
                 "string1 TEXT, " +
                 "string2 TEXT," +
-                "result FLOAT);";
+                "result TEXT);";
 
         create(sqlString,scanner);
     }
@@ -74,7 +74,7 @@ public class CreateDB {
                                 createTableForTask3(scanner);
                             }
                         } else if (ans.contains("0")){
-                            return;
+                            task.start(scanner);
                         }
                         else{
                             System.out.println("Ошибка ввода!");
@@ -86,6 +86,7 @@ public class CreateDB {
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(sqlString);
             System.out.println("Таблица '" +  task.tableName + "' создана.");
+            task.start(scanner);
         } catch (Exception e) {
             System.out.println("Ошибка при работе: " + e);
         }

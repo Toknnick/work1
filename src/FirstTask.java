@@ -54,7 +54,7 @@ public class FirstTask extends Task {
                     mathActions.toDegree(scanner);
                     break;
                 case "10":
-                    exportDB.saveAndExportTask();
+                    exportDB.saveAndExportTask(scanner);
                     break;
                 case "0":
                     loop = false;
