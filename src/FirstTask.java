@@ -1,11 +1,16 @@
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class FirstTask {
+public class FirstTask extends Task {
     public void start(Scanner scanner) throws SQLException {
-        MathActions mathActions = new MathActions();
-        ExportDB exportDB = new ExportDB();
+
+        taskNumber = 1;
+        MathActions mathActions = new MathActions(this);
+        ExportDB exportDB = new ExportDB(this);
+        CreateDB createDB = new CreateDB(this);
+        ShowerDB showerDB = new ShowerDB(this);
         boolean loop = true;
+
         while (loop) {
             System.out.println("Выберите действие:");
             System.out.println("1.Вывести все таблицы");
@@ -17,15 +22,15 @@ public class FirstTask {
             System.out.println("7.Деление чисел по модулю (остаток), результат сохранить");
             System.out.println("8.Возведение числа в модуль, результат сохранить");
             System.out.println("9.Возведение числа в степень, результат сохранить");
-            System.out.println("10.Сохранить все данные (вышеполученные результаты) в Excel и вывести на экран.");
+            System.out.println("10.Сохранить все данные (вышеполученные результаты) в Excel и вывести на экран.\n");
             System.out.println("0.Назад");
             String ans = scanner.nextLine();
             switch (ans){
                 case "1":
-                    ShowDB.showDB(scanner);
+                    showerDB.show(scanner);
                     break;
                 case "2":
-                    CreateDB.createTable(scanner);
+                    createDB.createTableForTask1(scanner);
                     break;
                 case "3":
                     mathActions.addition(scanner);
@@ -49,7 +54,7 @@ public class FirstTask {
                     mathActions.toDegree(scanner);
                     break;
                 case "10":
-                    exportDB.saveAndExportTask1();
+                    exportDB.saveAndExportTask();
                     break;
                 case "0":
                     loop = false;

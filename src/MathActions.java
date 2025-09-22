@@ -7,6 +7,11 @@ public class MathActions {
     private float firstNumFloat;
     private float secondNumFloat;
     private float resultNumFloat;
+    private Task task;
+
+    public MathActions(Task taskTemp){
+        task = taskTemp;
+    }
 
     public void addition(Scanner scanner){
         try {
@@ -88,34 +93,38 @@ public class MathActions {
     private void defaultActionWithNumbers(String action,String table) {
         try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Java", "postgres", "root")) {
             Statement stmt = conn.createStatement();
-            firstStart(stmt);
-                try {
-                    String sql = "";
-                    if (table.equals("Math1"))
-                        sql = "INSERT INTO Math (num1, num2, result, action) VALUES (?, ?, ?, ?)";
-                    else
-                        sql = "INSERT INTO Math (num1, result, action) VALUES (?, ?, ?)";
 
-                    PreparedStatement pstmt = conn.prepareStatement(sql);
+            if (task.tableName.isEmpty()){
+                System.out.println("Вы не выбрали/создали таблицу!");
+                return;
+            }
 
-                    if (table.equals("Math1")) {
-                        pstmt.setFloat(1, firstNumFloat);
-                        pstmt.setFloat(2, secondNumFloat);
-                        pstmt.setFloat(3, resultNumFloat);
-                        pstmt.setString(4, action);
-                    }
-                    else{
-                        pstmt.setFloat(1, firstNumFloat);
-                        pstmt.setFloat(2, resultNumFloat);
-                        pstmt.setString(3, action);
-                    }
+            try {
+                String sql = "";
+                if (table.equals("Math1"))
+                    sql = String.format("INSERT INTO %s (num1, num2, result, action) VALUES (?, ?, ?, ?)", task.tableName);
+                else
+                    sql = String.format("INSERT INTO %s (num1, result, action) VALUES (?, ?, ?)", task.tableName);
 
-                    pstmt.executeUpdate();
-                    System.out.println("Данные успешно сохранены");
-                    getInfo(stmt,table);
-                }catch (Exception e){
-                    System.out.println("Ошибка в запросе: " +e);
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+
+                if (table.equals("Math1")) {
+                    pstmt.setFloat(1, firstNumFloat);
+                    pstmt.setFloat(2, secondNumFloat);
+                    pstmt.setFloat(3, resultNumFloat);
+                    pstmt.setString(4, action);
+                } else {
+                    pstmt.setFloat(1, firstNumFloat);
+                    pstmt.setFloat(2, resultNumFloat);
+                    pstmt.setString(3, action);
                 }
+
+                pstmt.executeUpdate();
+                System.out.println("Данные успешно сохранены");
+                getInfo(stmt, table);
+            } catch (Exception e) {
+                System.out.println("Ошибка в запросе: " + e);
+            }
 
         } catch (Exception e) {
             System.out.println("Ошибка при работе: " + e);
@@ -123,7 +132,7 @@ public class MathActions {
     }
 
     private void getInfo(Statement stmt,String table) throws SQLException {
-        String sqlString = "SELECT id, num1, num2, result,action, action FROM Math";
+        String sqlString = String.format("SELECT id, num1, num2, result,action, action FROM %s",task.tableName);
 
         ResultSet data = stmt.executeQuery(sqlString);
         while (data.next()) {
@@ -160,17 +169,6 @@ public class MathActions {
             DecimalFormat df = new DecimalFormat("0.##");
             return df.format(number);
         }
-    }
-
-    private void firstStart(Statement stmt) throws SQLException {
-        String sqlString = "CREATE TABLE IF NOT EXISTS Math (" +
-                "id SERIAL PRIMARY KEY, " +
-                "num1 FLOAT NOT NULL, " +
-                "num2 FLOAT, " +
-                "result FLOAT, " +
-                "action TEXT" +
-                ");";
-            stmt.executeUpdate(sqlString);
     }
 
     private void getNumbers(Scanner scanner) {

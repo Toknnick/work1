@@ -17,7 +17,7 @@ public class Main {
             System.out.println("2.Вторая часть");
             System.out.println("3.Третья часть");
             System.out.println("4.Четвертая часть(в разработке)");
-            System.out.println("0.Выйти");
+            System.out.println("\n0.Выйти");
             String ans = scanner.nextLine();
             switch (ans){
                 case "1":

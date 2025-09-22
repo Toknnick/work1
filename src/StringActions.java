@@ -6,6 +6,11 @@ public class StringActions {
     private String firstString = "";
     private String secondString = "";
     private String result;
+    private Task task;
+
+    public StringActions(Task taskTemp){
+        task = taskTemp;
+    }
 
     public void getStrings(Scanner scanner,boolean isAction){
         result = "";
@@ -15,7 +20,7 @@ public class StringActions {
         secondString = scanner.nextLine();
 
         if(isAction)
-            defaultAction("Task2");
+            defaultAction();
     }
 
     public void getLenOfStrings(Scanner scanner){
@@ -24,7 +29,7 @@ public class StringActions {
             getStrings(scanner,false);
         }
         result = String.format("%d + %d = %d",firstString.length(),secondString.length(),firstString.length() + secondString.length());
-        defaultAction("Task2");
+        defaultAction();
     }
 
     public void addLines(Scanner scanner){
@@ -33,7 +38,7 @@ public class StringActions {
             getStrings(scanner,false);
         }
         result = firstString + secondString;
-        defaultAction("Task2");
+        defaultAction();
     }
 
     public void compare(Scanner scanner){
@@ -47,15 +52,20 @@ public class StringActions {
             result = "Строки не равны";
         }
 
-        defaultAction("Task2");
+        defaultAction();
     }
 
-    private void defaultAction(String table) {
+    private void defaultAction() {
         try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Java", "postgres", "root")) {
             Statement stmt = conn.createStatement();
-            firstStart(stmt);
+
+            if (task.tableName.isEmpty()){
+                System.out.println("Вы не выбрали/создали таблицу!");
+                return;
+            }
+
             try {
-                String sql = String.format("INSERT INTO %s (string1, string2, result) VALUES (?,  ?, ?)",(table));
+                String sql = String.format("INSERT INTO %s (string1, string2, result) VALUES (?,  ?, ?)",(task.tableName));
 
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, firstString);
@@ -64,7 +74,7 @@ public class StringActions {
 
                 pstmt.executeUpdate();
                 System.out.println("Данные успешно сохранены");
-                getInfo(stmt,table);
+                getInfo(stmt);
             }catch (Exception e){
                 System.out.println("Ошибка в запросе: " +e);
             }
@@ -74,8 +84,8 @@ public class StringActions {
         }
     }
 
-    private void getInfo(Statement stmt,String table) throws SQLException {
-        String sqlString = String.format("SELECT id, string1, string2, result FROM %s",(table));
+    private void getInfo(Statement stmt) throws SQLException {
+        String sqlString = String.format("SELECT id, string1, string2, result FROM %s",(task.tableName));
 
         ResultSet data = stmt.executeQuery(sqlString);
         while (data.next()) {
@@ -91,21 +101,5 @@ public class StringActions {
                 System.out.printf("id: %d, string1: %s, string2: %s\n",
                         id, string1, string2);
         }
-    }
-
-    private void firstStart(Statement stmt) throws SQLException {
-        String sqlString = "CREATE TABLE IF NOT EXISTS Task2 (" +
-                "id SERIAL PRIMARY KEY, " +
-                "string1 TEXT, " +
-                "string2 TEXT, " +
-                "result TEXT);";
-        stmt.executeUpdate(sqlString);
-
-        String sqlString2 = "CREATE TABLE IF NOT EXISTS Task4 (" +
-                "id SERIAL PRIMARY KEY, " +
-                "string1 TEXT, " +
-                "string2 TEXT, " +
-                "result TEXT);";
-        stmt.executeUpdate(sqlString2);
     }
 }

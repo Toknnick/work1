@@ -1,9 +1,14 @@
 import java.sql.*;
 import java.util.Scanner;
 
-public class ThirdTask {
+public class ThirdTask extends Task{
     public void start(Scanner scanner) throws SQLException {
-        ExportDB exportDB = new ExportDB();
+        taskNumber = 3;
+
+        ExportDB exportDB = new ExportDB(this);
+        CreateDB createDB = new CreateDB(this);
+        ShowerDB showerDB = new ShowerDB(this);
+
         boolean loop = true;
         while (loop) {
             System.out.println("Выберите действие:");
@@ -12,21 +17,22 @@ public class ThirdTask {
                     2. Создать таблицу\s
                     3. Выполнение задачи базового варианта
                     4. Сохранить все данные в Excel и вывести на экран.
+                    
                     0.Назад""");
             String ans = scanner.nextLine();
 
             switch (ans) {
                 case "1":
-                    ShowDB.showDB(scanner);
+                    showerDB.show(scanner);
                     break;
                 case "2":
-                    CreateDB.createTable(scanner);
+                    createDB.createTableForTask3(scanner);
                     break;
                 case "3":
                     action(scanner);
                     break;
                 case "4":
-                    exportDB.saveAndExportTask3();
+                    exportDB.saveAndExportTask();
                 case "0":
                     loop = false;
                     break;
@@ -40,6 +46,11 @@ public class ThirdTask {
     }
 
     private void action(Scanner scanner){
+        if (tableName.isEmpty()){
+            System.out.println("Вы не выбрали/создали таблицу!");
+            return;
+        }
+
         System.out.println("Введите сколько будет чисел:");
         int countOfNumber = 0;
         try {
@@ -95,9 +106,8 @@ public class ThirdTask {
 
         try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Java", "postgres", "root")) {
             Statement stmt = conn.createStatement();
-            firstStart(stmt);
             try {
-                String sql = "INSERT INTO Task3 (numbers, result) VALUES (?, ?)";
+                String sql = String.format("INSERT INTO %s (numbers, result) VALUES (?, ?)",tableName);
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, strNumbers.toString());
                 pstmt.setString(2, result.toString());
@@ -115,7 +125,7 @@ public class ThirdTask {
     }
 
     private void getInfo(Statement stmt) throws SQLException {
-        String sqlString = "SELECT id, numbers, result FROM Task3";
+        String sqlString = String.format("SELECT id, numbers, result FROM %s",tableName);
         ResultSet data = stmt.executeQuery(sqlString);
 
         while (data.next()) {
@@ -124,14 +134,6 @@ public class ThirdTask {
             String result = data.getString("result");
             System.out.printf("id: %d, numbers: %s, result: %s\n", id, numbers, result);
         }
-    }
-
-    private void firstStart(Statement stmt) throws SQLException {
-        String sqlString = "CREATE TABLE IF NOT EXISTS Task3 (" +
-                "id SERIAL PRIMARY KEY, " +
-                "numbers TEXT," +
-                "result TEXT)";
-        stmt.executeUpdate(sqlString);
     }
 
     private void wait(Scanner scanner) {
