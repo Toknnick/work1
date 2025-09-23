@@ -120,6 +120,14 @@ public class StringActions {
     }
 
     public void getStrings(Scanner scanner, boolean isAction) {
+        if (task.tableName.isEmpty()){
+            System.out.println("Вы не выбрали/создали таблицу!");
+            try {
+                task.start(scanner);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
         result = "";
         System.out.println("Введите первую строку");
         firstString = scanner.nextLine();
