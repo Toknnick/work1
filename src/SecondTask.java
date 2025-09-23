@@ -22,7 +22,6 @@ public class SecondTask extends Task{
                     5. Объединить две строки в единое целое
                     6. Сравнить две ранее введенные строки
                     7. Сохранить все данные в Excel и вывести на экран.
-                    
                     0.Назад""");
             String ans = scanner.nextLine();
 
@@ -60,7 +59,7 @@ public class SecondTask extends Task{
     }
 
     private void wait(Scanner scanner){
-        System.out.println("\nЧтобы продолжить, нажмите Enter\n");
+        System.out.println("Чтобы продолжить, нажмите Enter\n");
         scanner.nextLine();
     }
 }

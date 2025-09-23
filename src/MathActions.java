@@ -101,36 +101,35 @@ public class MathActions {
         try (Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Java", "postgres", "root")) {
             Statement stmt = conn.createStatement();
 
-            if (task.tableName.isEmpty()){
+            if (task.tableName.isEmpty()) {
                 System.out.println("Вы не выбрали/создали таблицу!");
-                task.start(scanner);
-            }
+            } else {
+                try {
+                    String sql = "";
+                    if (table.equals("Math1"))
+                        sql = String.format("INSERT INTO %s (num1, num2, result, action) VALUES (?, ?, ?, ?)", task.tableName);
+                    else
+                        sql = String.format("INSERT INTO %s (num1, result, action) VALUES (?, ?, ?)", task.tableName);
 
-            try {
-                String sql = "";
-                if (table.equals("Math1"))
-                    sql = String.format("INSERT INTO %s (num1, num2, result, action) VALUES (?, ?, ?, ?)", task.tableName);
-                else
-                    sql = String.format("INSERT INTO %s (num1, result, action) VALUES (?, ?, ?)", task.tableName);
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
 
-                PreparedStatement pstmt = conn.prepareStatement(sql);
+                    if (table.equals("Math1")) {
+                        pstmt.setFloat(1, firstNumFloat);
+                        pstmt.setFloat(2, secondNumFloat);
+                        pstmt.setFloat(3, resultNumFloat);
+                        pstmt.setString(4, action);
+                    } else {
+                        pstmt.setFloat(1, firstNumFloat);
+                        pstmt.setFloat(2, resultNumFloat);
+                        pstmt.setString(3, action);
+                    }
 
-                if (table.equals("Math1")) {
-                    pstmt.setFloat(1, firstNumFloat);
-                    pstmt.setFloat(2, secondNumFloat);
-                    pstmt.setFloat(3, resultNumFloat);
-                    pstmt.setString(4, action);
-                } else {
-                    pstmt.setFloat(1, firstNumFloat);
-                    pstmt.setFloat(2, resultNumFloat);
-                    pstmt.setString(3, action);
+                    pstmt.executeUpdate();
+                    System.out.println("Данные успешно сохранены");
+                    getInfo(stmt, table);
+                } catch (Exception e) {
+                    System.out.println("Ошибка в запросе: " + e);
                 }
-
-                pstmt.executeUpdate();
-                System.out.println("Данные успешно сохранены");
-                getInfo(stmt, table);
-            } catch (Exception e) {
-                System.out.println("Ошибка в запросе: " + e);
             }
 
         } catch (Exception e) {

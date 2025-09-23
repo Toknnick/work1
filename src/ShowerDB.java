@@ -28,7 +28,6 @@ public class ShowerDB {
             int counterTask2And4 = 1;
             int counterTask3 = 1;
 
-            System.out.println("Список таблиц, доступных для данной части работы:");
             //Выводим каждую таблицу
             while (rs.next()) {
                 String name = rs.getString("table_name");
@@ -57,6 +56,7 @@ public class ShowerDB {
                     task.start(scanner);
                 }
                 for (int i = 1; i < counterTask1; i++) {
+                    System.out.println("Список таблиц, доступных для данной части работы:");
                     System.out.println((i) + ". " + namesTask1[i]);
                 }
             }
@@ -66,6 +66,7 @@ public class ShowerDB {
                     task.start(scanner);
                 }
                 for (int i = 1; i < counterTask2And4; i++) {
+                    System.out.println("Список таблиц, доступных для данной части работы:");
                     System.out.println((i) + ". " + namesTask2And4[i]);
                 }
             }
@@ -75,6 +76,7 @@ public class ShowerDB {
                     task.start(scanner);
                 }
                 for (int i = 1; i < counterTask3; i++) {
+                    System.out.println("Список таблиц, доступных для данной части работы:");
                     System.out.println((i) + ". " + namesTask3[i]);
                 }
             }
@@ -89,31 +91,26 @@ public class ShowerDB {
     }
 
     private boolean choose(Scanner scanner,String[] names1,String[] names2,String[] names3){
-        if (task.tableName.isEmpty()) {
-            System.out.println("Выберите номер таблицы\n0.Назад");
-            try {
-                int ans = scanner.nextInt();
+        System.out.println("Чтобы выбрать таблицу, введите ее номер\n0.Назад");
+        try {
+            int ans = scanner.nextInt();
 
-                if (ans == 0){
-                    return false;
-                }
-
-                if (task.taskNumber == 1) {
-                    task.tableName = names1[ans];
-                }
-                else if (task.taskNumber == 2 || task.taskNumber == 4) {
-                    task.tableName = names2[ans];
-                }
-                else {
-                    task.tableName = names3[ans];
-                }
+            if (ans == 0) {
                 return false;
-            } catch (Exception e) {
-                System.out.println("Ошибка ввода!");
-                return true;
             }
+
+            if (task.taskNumber == 1) {
+                task.tableName = names1[ans];
+            } else if (task.taskNumber == 2 || task.taskNumber == 4) {
+                task.tableName = names2[ans];
+            } else {
+                task.tableName = names3[ans];
+            }
+            return false;
+        } catch (Exception e) {
+            System.out.println("Ошибка ввода!");
+            return true;
         }
-        return false;
     }
 
     // Метод для проверки наличия колонки (без try-catch для нормального случая)

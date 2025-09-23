@@ -17,7 +17,6 @@ public class ThirdTask extends Task{
                     2. Создать таблицу\s
                     3. Выполнение задачи базового варианта
                     4. Сохранить все данные в Excel и вывести на экран.
-                    
                     0.Назад""");
             String ans = scanner.nextLine();
 

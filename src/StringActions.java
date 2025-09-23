@@ -14,166 +14,160 @@ public class StringActions {
     }
 
     private void chooseString(Scanner scanner){
-        check(scanner);
-        tempString = "";
-        while (true){
-            System.out.println("Введите номер строки:\n0.Назад");
-            String ans = scanner.nextLine();
-            if (ans.contains("1")){
-                tempString = firstString;
-                break;
-            } else if (ans.contains("2")) {
-                tempString = secondString;
-                break;
-            }
-            else if (ans.contains("0")){
-                try {
-                    task.start(scanner);
+        if(check(scanner)) {
+            tempString = "";
+            while (true) {
+                System.out.println("Введите номер строки:\n0.Назад");
+                String ans = scanner.nextLine();
+                if (ans.contains("1")) {
+                    tempString = firstString;
                     break;
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                } else if (ans.contains("2")) {
+                    tempString = secondString;
+                    break;
+                } else if (ans.contains("0")) {
+                    break;
+                } else {
+                    System.out.println("Ошибка Ввода!");
                 }
-            }
-            else{
-                System.out.println("Ошибка Ввода!");
             }
         }
     }
 
 
     public void stringToRegister(Scanner scanner) {
-        chooseString(scanner);
+        if(check(scanner)) {
+            chooseString(scanner);
 
-        while (true){
-            System.out.println("1.В верхний\n2.В нижний\n0.Назад");
-            String ans = scanner.nextLine();
-            if (ans.contains("1")){
-                tempString = tempString.toUpperCase();
-                break;
-            } else if (ans.contains("2")) {
-                tempString = tempString.toLowerCase();
-                break;
-            }
-            else{
-                try {
-                    task.start(scanner);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+            while (true) {
+                System.out.println("1.В верхний\n2.В нижний\n0.Назад");
+                String ans = scanner.nextLine();
+                if (ans.contains("1")) {
+                    tempString = tempString.toUpperCase();
+                    break;
+                } else if (ans.contains("2")) {
+                    tempString = tempString.toLowerCase();
+                    break;
+                } else {
+                    break;
                 }
             }
-        }
 
-        result = tempString;
-        defaultAction();
+            result = tempString;
+            defaultAction();
+        }
     }
 
     public void returnStrByIndex(Scanner scanner) {
-        chooseString(scanner);
+        if(check(scanner)) {
+            chooseString(scanner);
 
-        int startIndex = 0;
-        int endIndex = 0;
+            int startIndex = 0;
+            int endIndex = 0;
 
-        try {
-            System.out.println("Введите первый индекс");
-            startIndex = scanner.nextInt();
-            System.out.println("Введите второй индекс");
-            endIndex = scanner.nextInt();
-        }catch (Exception e){
-            System.out.println("Ошибка ввода!");
-        }
+            try {
+                System.out.println("Введите первый индекс");
+                startIndex = scanner.nextInt();
+                System.out.println("Введите второй индекс");
+                endIndex = scanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("Ошибка ввода!");
+            }
 
-        if (startIndex >= 0 && endIndex > startIndex && endIndex <= tempString.length()) {
-            result = tempString.substring(startIndex, endIndex);
-            defaultAction();
-        } else {
-            System.out.println("Неверные индексы!");
-            returnStrByIndex(scanner);
+            if (startIndex >= 0 && endIndex > startIndex && endIndex <= tempString.length()) {
+                result = tempString.substring(startIndex, endIndex);
+                defaultAction();
+            } else {
+                System.out.println("Неверные индексы!");
+                returnStrByIndex(scanner);
+            }
         }
     }
 
     public void findEndOfString(Scanner scanner) {
-        chooseString(scanner);
+        if(check(scanner)) {
+            chooseString(scanner);
 
-        System.out.print("Введите подстроку для проверки: ");
-        String substring = scanner.nextLine().trim();
+            System.out.print("Введите подстроку для проверки: ");
+            String substring = scanner.nextLine().trim();
 
-        if (substring.isEmpty()) {
-            System.out.println("Подстрока пуста!");
-            findEndOfString(scanner);
+            if (substring.isEmpty()) {
+                System.out.println("Подстрока пуста!");
+                findEndOfString(scanner);
+            }
+
+            // Опционально: проверка без учёта регистра
+            boolean endsWithIgnoreCase = tempString.toLowerCase().endsWith(substring.toLowerCase());
+            System.out.println("Без учёта регистра: " + endsWithIgnoreCase);
+
+            // Дополнительно: найти позицию подстроки (если нужно "найти")
+            int lastIndex = tempString.lastIndexOf(substring);
+            if (lastIndex != -1 && lastIndex + substring.length() == tempString.length()) {
+                result = "Подстрока " + substring + " найдена в конце (позиция: " + lastIndex + ").";
+            } else if (lastIndex != -1) {
+                result = "Подстрока " + substring + " найдена, но не в конце (позиция: " + lastIndex + ").";
+            } else {
+                result = "Подстрока " + substring + " не найдена.";
+            }
+
+            defaultAction();
         }
-
-        // Опционально: проверка без учёта регистра
-        boolean endsWithIgnoreCase = tempString.toLowerCase().endsWith(substring.toLowerCase());
-        System.out.println("Без учёта регистра: " + endsWithIgnoreCase);
-
-        // Дополнительно: найти позицию подстроки (если нужно "найти")
-        int lastIndex = tempString.lastIndexOf(substring);
-        if (lastIndex != -1 && lastIndex + substring.length() == tempString.length()) {
-            result = "Подстрока" + substring + " найдена в конце (позиция: " + lastIndex + ").";
-        } else if (lastIndex != -1) {
-            result = "Подстрока" + substring + " найдена, но не в конце (позиция: " + lastIndex + ").";
-        } else {
-            result = "Подстрока" + substring + " не найдена.";
-        }
-
-        defaultAction();
     }
 
     public void getStrings(Scanner scanner, boolean isAction) {
         if (task.tableName.isEmpty()){
             System.out.println("Вы не выбрали/создали таблицу!");
-            try {
-                task.start(scanner);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        result = "";
-        System.out.println("Введите первую строку");
-        firstString = scanner.nextLine();
-        System.out.println("Введите вторую строку");
-        secondString = scanner.nextLine();
 
-        if (isAction)
-            defaultAction();
+        }
+        else {
+            result = "";
+            System.out.println("Введите первую строку");
+            firstString = scanner.nextLine();
+            System.out.println("Введите вторую строку");
+            secondString = scanner.nextLine();
+
+            if (isAction)
+                defaultAction();
+        }
     }
 
     public void getLenOfStrings(Scanner scanner){
-        check(scanner);
-        result = String.format("%d + %d = %d",firstString.length(),secondString.length(),firstString.length() + secondString.length());
-        defaultAction();
+        if(check(scanner)) {
+            result = String.format("%d + %d = %d", firstString.length(), secondString.length(), firstString.length() + secondString.length());
+            defaultAction();
+        }
     }
 
     public void addLines(Scanner scanner){
-        check(scanner);
-        result = firstString + secondString;
-        defaultAction();
+        if(check(scanner)) {
+            result = firstString + secondString;
+            defaultAction();
+        }
     }
 
     public void compare(Scanner scanner){
-        check(scanner);
-        if (firstString.equals(secondString)) {
-            result = "Строки равны";
-        } else {
-            result = "Строки не равны";
-        }
+        if(check(scanner)) {
+            if (firstString.equals(secondString)) {
+                result = "Строки равны";
+            } else {
+                result = "Строки не равны";
+            }
 
-        defaultAction();
+            defaultAction();
+        }
     }
 
-    private void check(Scanner scanner){
+    private boolean check(Scanner scanner){
         if (task.tableName.isEmpty()){
             System.out.println("Вы не выбрали/создали таблицу!");
-            try {
-                task.start(scanner);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            return false;
         }
         if (firstString.isEmpty() || secondString.isEmpty()){
             System.out.println("Нет строк! Введите новые!");
             getStrings(scanner,false);
+            return true;
         }
+        return true;
     }
 
     private void defaultAction() {

@@ -68,7 +68,7 @@ public class CreateDB {
 
         //Запрос для создания таблицы
         String sqlString = "CREATE TABLE IF NOT EXISTS " +  task.tableName + " (" +
-                "id SERIAL PRIMARY KEYo, " +
+                "id SERIAL PRIMARY KEY, " +
                 "numbers TEXT, " +
                 "result TEXT);";
 
@@ -98,7 +98,7 @@ public class CreateDB {
                                 break;
                             }
                         } else if (ans.contains("0")){
-                            task.start(scanner);
+                            break;
                         }
                         else{
                             System.out.println("Ошибка ввода!");

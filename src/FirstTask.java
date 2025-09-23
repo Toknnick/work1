@@ -22,7 +22,7 @@ public class FirstTask extends Task {
             System.out.println("7.Деление чисел по модулю (остаток), результат сохранить");
             System.out.println("8.Возведение числа в модуль, результат сохранить");
             System.out.println("9.Возведение числа в степень, результат сохранить");
-            System.out.println("10.Сохранить все данные (вышеполученные результаты) в Excel и вывести на экран.\n");
+            System.out.println("10.Сохранить все данные (вышеполученные результаты) в Excel и вывести на экран");
             System.out.println("0.Назад");
             String ans = scanner.nextLine();
             switch (ans){

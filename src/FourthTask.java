@@ -21,7 +21,6 @@ public class FourthTask extends Task{
                     4. Перевод строк в верхний и нижний регистры
                     5. Поиск подстроки и определение окончания подстроки
                     6. Сохранить все данные в Excel
-                    
                     0.Назад""");
             String ans = scanner.nextLine();
 
