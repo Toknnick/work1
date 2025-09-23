@@ -124,7 +124,8 @@ public class CreateDB {
         String normalized = input.toLowerCase();
         // Шаг 2: Замена пробелов и спецсимволов на _
         normalized = normalized.replaceAll("\\s+", "_"); // Пробелы на _
-        normalized = normalized.replaceAll("[^a-z0-9_]", "");
+        normalized = normalized.replaceAll("[^a-z0-9_а-я]", "");
+        //1normalized = normalized.replaceAll("[^а-я0-9_]", "");
 
         if (normalized.isEmpty()) {
             return "mytable";

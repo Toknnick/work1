@@ -50,8 +50,15 @@ public class MathActions {
     public void division(Scanner scanner) {
         try {
             getNumbers(scanner);
-            resultNumFloat = firstNumFloat / secondNumFloat;
-            defaultActionWithNumbers("/","Math1",scanner);
+            if (firstNumFloat == 0 && secondNumFloat == 0) {
+                System.out.println("На ноль делить нельзя!");
+                division(scanner);
+                return;
+            }
+            else {
+                resultNumFloat = firstNumFloat / secondNumFloat;
+                defaultActionWithNumbers("/", "Math1", scanner);
+            }
         } catch (Exception e) {
             System.out.println("Неверный формат ввода!");
             division(scanner);
@@ -61,8 +68,15 @@ public class MathActions {
     public void divisionModule(Scanner scanner) {
         try {
             getNumbers(scanner);
-            resultNumFloat = firstNumFloat % secondNumFloat;
-            defaultActionWithNumbers("%","Math1",scanner);
+            if (firstNumFloat == 0 && secondNumFloat == 0) {
+                System.out.println("На ноль делить нельзя!");
+                division(scanner);
+                return;
+            }
+            else {
+                resultNumFloat = firstNumFloat % secondNumFloat;
+                defaultActionWithNumbers("%", "Math1", scanner);
+            }
         } catch (Exception e) {
             System.out.println("Неверный формат ввода!");
             divisionModule(scanner);
