@@ -12,23 +12,37 @@ public class CreateDB {
     public void createTableForTask1(Scanner scanner) {
         System.out.println("Введите название таблицы:");
         String tempStr = scanner.nextLine();
-        task.tableName = normalizeTableName(tempStr);
+        String tempstr2 = normalizeTableName(tempStr);
+        if (tempstr2.equals("mytable")) {
+            System.out.println("Ошибка ввода!");
+            createTableForTask1(scanner);
+        } else {
 
-        //Запрос для создания таблицы
-        String sqlString = "CREATE TABLE IF NOT EXISTS " +  task.tableName + " (" +
-                "id SERIAL PRIMARY KEY, " +
-                "num1 FLOAT NOT NULL, " +
-                "num2 FLOAT NOT NULL, " +
-                "result FLOAT," +
-                "action TEXT);";
+            task.tableName = tempstr2;
 
-        create(sqlString,scanner);
+            //Запрос для создания таблицы
+            String sqlString = "CREATE TABLE IF NOT EXISTS " + task.tableName + " (" +
+                    "id SERIAL PRIMARY KEY, " +
+                    "num1 FLOAT NOT NULL, " +
+                    "num2 FLOAT NOT NULL, " +
+                    "result FLOAT," +
+                    "action TEXT);";
+
+            create(sqlString, scanner);
+        }
     }
 
     public void createTableForTask2And4(Scanner scanner) {
         System.out.println("Введите название таблицы:");
         String tempStr = scanner.nextLine();
-        task.tableName = normalizeTableName(tempStr);
+        String tempstr2 = normalizeTableName(tempStr);
+        if (tempstr2.equals("mytable")){
+            System.out.println("Ошибка ввода!");
+            createTableForTask2And4(scanner);
+            return;
+        }
+
+        task.tableName = tempstr2;
 
         //Запрос для создания таблицы
         String sqlString = "CREATE TABLE IF NOT EXISTS " +  task.tableName + " (" +
@@ -43,7 +57,14 @@ public class CreateDB {
     public void createTableForTask3(Scanner scanner) {
         System.out.println("Введите название таблицы:");
         String tempStr = scanner.nextLine();
-        task.tableName = normalizeTableName(tempStr);
+        String tempstr2 = normalizeTableName(tempStr);
+        if (tempstr2.equals("mytable")){
+            System.out.println("Ошибка ввода!");
+            createTableForTask3(scanner);
+            return;
+        }
+
+        task.tableName = tempstr2;
 
         //Запрос для создания таблицы
         String sqlString = "CREATE TABLE IF NOT EXISTS " +  task.tableName + " (" +
@@ -109,7 +130,7 @@ public class CreateDB {
             return "mytable";
         }
         if (normalized.matches("^\\d.*")) {
-            normalized = "_" + normalized;
+            return "mytable";
         }
         if (normalized.length() > 63) {
             normalized = normalized.substring(0, 63);
@@ -119,7 +140,7 @@ public class CreateDB {
         String[] reservedWords = {"select", "insert", "update", "delete", "table", "create"}; // Примеры
         for (String word : reservedWords) {
             if (normalized.equals(word)) {
-                return "mytable_" + System.currentTimeMillis();
+                return "mytable";
             }
         }
 

@@ -28,7 +28,7 @@ public class ShowerDB {
             int counterTask2And4 = 1;
             int counterTask3 = 1;
 
-            System.out.println("Список таблиц:");
+            System.out.println("Список таблиц, доступных для данной части работы:");
             //Выводим каждую таблицу
             while (rs.next()) {
                 String name = rs.getString("table_name");
@@ -53,7 +53,7 @@ public class ShowerDB {
 
             if (task.taskNumber == 1) {
                 if (counterTask1 == 1){
-                    System.out.println("Таблиц нет!");
+                    System.out.println("\nТаблиц для данной части нет!\n");
                     task.start(scanner);
                 }
                 for (int i = 1; i < counterTask1; i++) {
@@ -62,7 +62,7 @@ public class ShowerDB {
             }
             else if (task.taskNumber == 2 || task.taskNumber == 4) {
                 if (counterTask2And4 == 1){
-                    System.out.println("Таблиц нет!");
+                    System.out.println("\nТаблиц для данной части нет!\n");
                     task.start(scanner);
                 }
                 for (int i = 1; i < counterTask2And4; i++) {
@@ -71,7 +71,7 @@ public class ShowerDB {
             }
             else {
                 if (counterTask3 == 1){
-                    System.out.println("Таблиц нет!");
+                    System.out.println("\nТаблиц для данной части нет!\n");
                     task.start(scanner);
                 }
                 for (int i = 1; i < counterTask3; i++) {
@@ -90,7 +90,7 @@ public class ShowerDB {
 
     private boolean choose(Scanner scanner,String[] names1,String[] names2,String[] names3){
         if (task.tableName.isEmpty()) {
-            System.out.println("Выберите номер таблицы, если не хотите выбирать - напишите цифру ноль");
+            System.out.println("Выберите номер таблицы\n0.Назад");
             try {
                 int ans = scanner.nextInt();
 

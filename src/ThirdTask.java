@@ -13,7 +13,7 @@ public class ThirdTask extends Task{
         while (loop) {
             System.out.println("Выберите действие:");
             System.out.println("""
-                    1. Вывести все таблицы из MySQL/PostgreSQL.
+                    1. Вывести все таблицы
                     2. Создать таблицу\s
                     3. Выполнение задачи базового варианта
                     4. Сохранить все данные в Excel и вывести на экран.
