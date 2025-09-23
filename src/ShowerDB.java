@@ -85,6 +85,7 @@ public class ShowerDB {
                 loop = choose(scanner, namesTask1, namesTask2And4,namesTask3);
                 scanner.nextLine();
             }
+            conn.close();
         } catch (Exception e) {
             System.out.println(e);
         }

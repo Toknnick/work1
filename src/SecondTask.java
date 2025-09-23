@@ -54,7 +54,7 @@ public class SecondTask extends Task{
                     break;
             }
 
-            wait(scanner);
+            //wait(scanner);
         }
     }
 

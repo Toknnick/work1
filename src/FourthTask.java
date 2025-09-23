@@ -50,7 +50,7 @@ public class FourthTask extends Task{
                     break;
             }
 
-            wait(scanner);
+            //wait(scanner);
         }
     }
 

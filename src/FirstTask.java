@@ -64,7 +64,7 @@ public class FirstTask extends Task {
                     break;
             }
 
-            wait(scanner);
+            //wait(scanner);
         }
     }
 
