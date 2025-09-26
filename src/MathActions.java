@@ -103,8 +103,9 @@ public class MathActions {
             System.out.println("Введите степень:");
             int degree = scanner.nextInt();
             firstNumFloat = Float.parseFloat(num1);
+            secondNumFloat = degree;
             resultNumFloat = (float)Math.pow(firstNumFloat,degree);
-            defaultActionWithNumbers("X^y","Math2",scanner);
+            defaultActionWithNumbers("X^y","Math1",scanner);
         } catch (Exception e) {
             System.out.println("Неверный формат ввода!");
             toDegree(scanner);

@@ -15,7 +15,8 @@ public class CreateDB {
         String tempstr2 = normalizeTableName(tempStr);
         if (tempstr2.equals("mytable")) {
             System.out.println("Ошибка ввода!");
-            createTableForTask1(scanner);
+            //createTableForTask1(scanner);
+            return;
         } else {
 
             task.tableName = tempstr2;
@@ -23,8 +24,8 @@ public class CreateDB {
             //Запрос для создания таблицы
             String sqlString = "CREATE TABLE IF NOT EXISTS " + task.tableName + " (" +
                     "id SERIAL PRIMARY KEY, " +
-                    "num1 FLOAT NOT NULL, " +
-                    "num2 FLOAT NOT NULL, " +
+                    "num1 FLOAT, " +
+                    "num2 FLOAT, " +
                     "result FLOAT," +
                     "action TEXT);";
 

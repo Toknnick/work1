@@ -52,6 +52,7 @@ public class FirstTask extends Task {
                     break;
                 case "9":
                     mathActions.toDegree(scanner);
+                    scanner.nextLine();
                     break;
                 case "10":
                     exportDB.saveAndExportTask(scanner);
@@ -60,7 +61,7 @@ public class FirstTask extends Task {
                     loop = false;
                     break;
                 default:
-                    System.out.println("Ошибка ввода!");
+                    //System.out.println("Ошибка ввода!");
                     break;
             }
 
